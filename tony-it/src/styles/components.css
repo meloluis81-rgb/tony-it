@@ -1,0 +1,73 @@
+/* Tony IT — components.css — elementos de UI reutilizáveis (botões, badges, cabeçalhos de seção)
+   Parte do design system cyber-tech (ver tokens.css para as variáveis). */
+
+.nav-logo{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.9rem;letter-spacing:.08em;
+  color:var(--white);text-decoration:none;
+}
+.nav-logo b{color:var(--cyan);font-weight:400;text-shadow:0 0 10px rgba(0,200,255,.6);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;letter-spacing:.18em;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.64rem;letter-spacing:.12em;
+  color:var(--void);background:var(--cyan);
+  border:none;padding:8px 22px;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  text-decoration:none;transition:box-shadow .2s;
+}
+.nav-cta:hover{box-shadow:var(--glow);}
+.hero-status{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:32px;opacity:0;
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#00FF7F;
+  box-shadow:0 0 8px #00FF7F;
+  animation:pdot 2s ease-in-out infinite;
+}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.75);}}
+.status-txt{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;letter-spacing:.2em;color:#00FF7F;
+}
+.btn-p{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.12em;
+  color:var(--void);background:var(--cyan);
+  border:none;padding:13px 32px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  text-decoration:none;display:inline-block;
+  transition:box-shadow .25s,transform .15s;
+}
+.btn-p:hover{
+  box-shadow:0 0 30px rgba(0,200,255,.65),0 0 70px rgba(0,200,255,.2);
+  transform:translateY(-1px);
+}
+.btn-g{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.12em;
+  color:var(--cyan);background:transparent;
+  border:1px solid rgba(0,200,255,.28);
+  padding:12px 32px;text-decoration:none;display:inline-block;
+  transition:border-color .25s;
+}
+.btn-g:hover{border-color:var(--cyan);}
+.sec-tag{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;letter-spacing:.26em;
+  color:var(--muted);display:block;margin-bottom:14px;
+}
+.sec-h{
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(1.7rem,3.8vw,2.6rem);
+  line-height:1.1;color:var(--white);
+  margin-bottom:52px;
+}
+.sec-h .c{color:var(--cyan);}

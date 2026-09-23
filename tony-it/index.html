@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Tony IT — Suporte Técnico Especializado</title>
+  <meta name="description" content="Suporte técnico especializado em Manaus (AM): formatação, manutenção de hardware, diagnóstico, redes e configuração de sistemas Windows e Linux.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tony IT — Suporte Técnico Especializado">
+  <meta property="og:description" content="Diagnóstico ágil, solução direta. Suporte técnico especializado em Manaus (AM) para computadores, redes e sistemas.">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/tokens.css">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/layout.css">
+  <link rel="stylesheet" href="src/styles/components.css">
+  <link rel="stylesheet" href="src/styles/responsive.css">
+</head>
+<body>
+
+<a class="skip-link" href="#hero">Pular para o conteúdo</a>
+
+<!-- Custom cursor (pointer devices) -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- WebGL fixed background -->
+<canvas id="bg-canvas"></canvas>
+
+<div class="page">
+
+<!-- NAV -->
+<nav id="nav" aria-label="Navegação principal">
+  <a class="nav-logo" href="#">TONY<b>_IT</b></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">sobre</a></li>
+    <li><a href="#servicos">serviços</a></li>
+    <li><a href="#processo">processo</a></li>
+    <li><a href="#formacao">formação</a></li>
+  </ul>
+  <a class="nav-cta" href="#contato">contato</a>
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mob-menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-menu" id="mob-menu">
+  <a href="#sobre">sobre</a>
+  <a href="#servicos">serviços</a>
+  <a href="#processo">processo</a>
+  <a href="#formacao">formação</a>
+  <a href="#contato">contato</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-status" id="hs">
+      <div class="status-dot"></div>
+      <span class="status-txt">sistema disponível · atendimento ativo</span>
+    </div>
+    <h1 class="hero-name" id="hn">
+      <span id="scr">TONY</span><span class="cyn">_IT</span>
+    </h1>
+    <p class="hero-role" id="hr">suporte técnico especializado · manaus — am</p>
+    <p class="hero-desc" id="hd">Diagnóstico ágil, solução direta. Computadores funcionando, usuários satisfeitos — sem enrolação.</p>
+    <div class="hero-btns" id="hb">
+      <a class="btn-p" href="#contato">solicitar atendimento</a>
+      <a class="btn-g" href="#servicos">ver serviços</a>
+    </div>
+  </div>
+  <div class="hero-scroll" id="hscr">
+    <div class="scroll-line"></div>
+    <span class="scroll-lbl">scroll</span>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<div class="glass">
+<section id="sobre">
+  <span class="sec-tag rv">// 001 — identificação</span>
+  <h2 class="sec-h rv">Técnico orientado a<br>resultados <span class="c">concretos</span></h2>
+  <div class="about-grid">
+    <div>
+      <p class="rv">Estudante de Ciência da Computação com experiência prática em suporte técnico, manutenção de equipamentos e configuração de sistemas operacionais.</p>
+      <p class="rv">Atendimento de Nível 1 para usuários finais, com domínio de ambientes Windows e Linux. Cada chamado tratado com método e transparência.</p>
+      <div class="glow-rule rv"></div>
+      <div class="stats rv">
+        <div class="stat">
+          <span class="stat-v counter" data-to="216">0h</span>
+          <span class="stat-n">horas de formação técnica</span>
+        </div>
+        <div class="stat">
+          <span class="stat-v">N1</span>
+          <span class="stat-n">nível de suporte</span>
+        </div>
+        <div class="stat">
+          <span class="stat-v">Win+Linux</span>
+          <span class="stat-n">ambientes suportados</span>
+        </div>
+        <div class="stat">
+          <span class="stat-v">680h</span>
+          <span class="stat-n">inglês técnico</span>
+        </div>
+      </div>
+    </div>
+    <ul class="sk-list rv">
+      <li>Windows OS — instalação e config<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+      <li>Linux OS — ambiente completo<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+      <li>Manutenção de hardware<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></li>
+      <li>Diagnóstico de sistema<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+      <li>Suporte ao usuário final<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></li>
+      <li>Redes e conectividade<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></li>
+      <li>Office / Google Workspace<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<!-- SERVIÇOS -->
+<div class="glass-d">
+<section id="servicos">
+  <span class="sec-tag rv">// 002 — módulos de serviço</span>
+  <h2 class="sec-h rv">O que eu resolvo<br>para você</h2>
+  <div class="svc-list">
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.01</span>
+      <div><h3 class="svc-name">Instalação e Configuração de SO</h3><p class="svc-desc">Formatação, instalação e configuração completa de Windows 10/11 e distribuições Linux. Ambiente limpo, atualizado e pronto.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.02</span>
+      <div><h3 class="svc-name">Manutenção de Hardware</h3><p class="svc-desc">Montagem, troca de componentes, diagnóstico de falhas físicas e manutenção preventiva e corretiva de computadores.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.03</span>
+      <div><h3 class="svc-name">Diagnóstico e Otimização</h3><p class="svc-desc">Identificação de gargalos, erros de software e conflitos de driver. Máquinas lentas ou instáveis — resolvidas.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.04</span>
+      <div><h3 class="svc-name">Suporte Técnico ao Usuário</h3><p class="svc-desc">Atendimento N1: resolução de dúvidas operacionais, instalação de programas e configuração de periféricos.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.05</span>
+      <div><h3 class="svc-name">Conectividade e Redes</h3><p class="svc-desc">Diagnóstico e resolução de problemas de rede, configuração de roteadores, falhas de conectividade doméstica e de escritório.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.06</span>
+      <div><h3 class="svc-name">Ambiente de Trabalho Digital</h3><p class="svc-desc">Configuração do Pacote Office e Google Workspace, organização de arquivos e backup de dados.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- PROCESSO -->
+<div class="glass">
+<section id="processo">
+  <span class="sec-tag rv">// 003 — protocolo de atendimento</span>
+  <h2 class="sec-h rv">Como funciona<br>cada <span class="c">chamado</span></h2>
+  <div class="tl">
+    <div class="tl-track">
+      <div class="tl-row rv"><span class="tl-num">fase 01</span><div class="tl-gem"></div></div>
+      <div class="tl-row rv"><span class="tl-num">fase 02</span><div class="tl-gem"></div></div>
+      <div class="tl-row rv"><span class="tl-num">fase 03</span><div class="tl-gem"></div></div>
+      <div class="tl-row rv"><span class="tl-num">fase 04</span><div class="tl-gem"></div></div>
+    </div>
+    <div>
+      <div class="tl-row rv"><h3 class="tl-title">Contato e briefing</h3><p class="tl-desc">Você descreve o problema. Faço as perguntas certas para entender o contexto sem enrolação.</p></div>
+      <div class="tl-row rv"><h3 class="tl-title">Diagnóstico preciso</h3><p class="tl-desc">Analiso o sistema, identifico a causa raiz e apresento o plano de ação com clareza.</p></div>
+      <div class="tl-row rv"><h3 class="tl-title">Execução técnica</h3><p class="tl-desc">Aplico a solução de forma organizada, com atenção total aos seus dados e configurações.</p></div>
+      <div class="tl-row rv"><h3 class="tl-title">Verificação e entrega</h3><p class="tl-desc">Confirmo que tudo está funcionando antes de fechar. Sem suposições, só resultado.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- FORMAÇÃO -->
+<div class="glass-d">
+<section id="formacao">
+  <span class="sec-tag rv">// 004 — credenciais</span>
+  <h2 class="sec-h rv">Formação e<br><span class="c">certificações</span></h2>
+  <div class="creds rv">
+    <div class="cred"><span class="cred-type">graduação em andamento</span><p class="cred-name">Bacharelado em Ciência da Computação</p><p class="cred-detail">Faculdade Estácio · 3º Período</p></div>
+    <div class="cred"><span class="cred-type">certificação técnica</span><p class="cred-name">Informática Completa</p><p class="cred-detail">CEA Office · 216 horas</p></div>
+    <div class="cred"><span class="cred-type">ensino regular</span><p class="cred-name">Ensino Médio Completo</p><p class="cred-detail">Colégio IDAAM · conclusão 2025</p></div>
+    <div class="cred"><span class="cred-type">idioma</span><p class="cred-name">Inglês Intermediário</p><p class="cred-detail">ASLAN Idiomas · 680 horas</p></div>
+  </div>
+</section>
+</div>
+
+<!-- CTA -->
+<div class="glass">
+<section id="contato" class="cta-sec">
+  <span class="sec-tag rv" style="display:block;text-align:center">// sistema disponível</span>
+  <h2 class="cta-h rv">Pronto para resolver<br>o seu <em>problema</em></h2>
+  <p class="cta-sub rv">Equipamento com problema, sistema lento, dúvida técnica — entra em contato e resolvemos direto ao ponto.</p>
+  <div class="cta-row rv">
+    <a class="btn-p" href="https://wa.me/5592981533758" target="_blank" rel="noopener">chamar no whatsapp</a>
+    <a class="btn-g" href="mailto:tonyit214@gmail.com">enviar e-mail</a>
+  </div>
+</section>
+</div>
+
+<footer>
+  <span class="foot-brand">TONY<b>_IT</b></span>
+  <span class="foot-loc">Manaus, AM · suporte técnico especializado</span>
+</footer>
+
+</div><!-- .page -->
+
+<!-- THREE.JS -->
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script src="src/scripts/particles.js"></script>
+<script src="src/scripts/cursor.js"></script>
+<script src="src/scripts/animations.js"></script>
+<script src="src/scripts/nav.js"></script>
+</body>
+</html>
