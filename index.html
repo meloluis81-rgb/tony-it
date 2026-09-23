@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Tony IT — Suporte Técnico Especializado</title>
+  <meta name="description" content="Suporte técnico especializado em Manaus (AM): formatação, manutenção de hardware, diagnóstico, redes e configuração de sistemas Windows e Linux.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tony IT — Suporte Técnico Especializado">
+  <meta property="og:description" content="Diagnóstico ágil, solução direta. Suporte técnico especializado em Manaus (AM) para computadores, redes e sistemas.">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000005'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='58' fill='%2300C8FF' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --void:  #000005;
+  --deep:  #040C18;
+  --glass: rgba(4,12,24,.88);
+  --panel: rgba(4,15,30,.94);
+  --cyan:  #00C8FF;
+  --blue:  #0044CC;
+  --white: #E8F4FF;
+  --muted: #3A5878;
+  --rim:   rgba(0,200,255,.08);
+  --glow:  0 0 22px rgba(0,200,255,.5);
+}
+
+/* ── RESET ───────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--void);
+  color:var(--white);
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:300;
+  line-height:1.65;
+  overflow-x:hidden;
+}
+
+/* ── SCAN LINES ──────────────────────────────────────────── */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,
+    rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);
+}
+
+/* ── WEBGL CANVAS (fixed, behind everything) ─────────────── */
+#bg-canvas{
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;
+}
+
+/* ── PAGE CONTENT ────────────────────────────────────────── */
+.page{position:relative;z-index:1;}
+
+/* ── CUSTOM CURSOR (pointer devices only) ────────────────── */
+@media(pointer:fine){
+  body{cursor:none;}
+  a,button,.svc-row{cursor:none;}
+}
+#cur-dot{
+  position:fixed;width:6px;height:6px;
+  background:var(--cyan);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 8px var(--cyan);
+  transition:width .15s,height .15s;
+}
+#cur-ring{
+  position:fixed;width:30px;height:30px;
+  border:1px solid rgba(0,200,255,.45);border-radius:50%;
+  pointer-events:none;z-index:9997;
+  transform:translate(-50%,-50%);
+  transition:width .3s,height .3s,opacity .3s;
+}
+body.chover #cur-dot{width:10px;height:10px;}
+body.chover #cur-ring{width:50px;height:50px;opacity:.35;}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,5vw,72px);height:60px;
+  background:rgba(0,0,5,.75);
+  border-bottom:1px solid var(--rim);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  transition:background .3s;
+}
+nav.scrolled{background:rgba(0,0,5,.96);}
+
+.nav-logo{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.9rem;letter-spacing:.08em;
+  color:var(--white);text-decoration:none;
+}
+.nav-logo b{color:var(--cyan);font-weight:400;text-shadow:0 0 10px rgba(0,200,255,.6);}
+
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;letter-spacing:.18em;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--cyan);}
+
+.nav-cta{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.64rem;letter-spacing:.12em;
+  color:var(--void);background:var(--cyan);
+  border:none;padding:8px 22px;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  text-decoration:none;transition:box-shadow .2s;
+}
+.nav-cta:hover{box-shadow:var(--glow);}
+
+/* Mobile burger */
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;padding:4px;
+}
+.burger span{
+  display:block;width:22px;height:1px;
+  background:var(--white);
+  transition:transform .3s,opacity .3s;
+}
+.burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+.mob-menu{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:36px;
+  position:fixed;inset:60px 0 0;
+  background:rgba(0,0,5,.97);backdrop-filter:blur(24px);
+  z-index:499;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .3s,visibility .3s;
+}
+.mob-menu.open{opacity:1;visibility:visible;pointer-events:all;}
+.mob-menu a{
+  font-family:'Share Tech Mono',monospace;
+  font-size:1.3rem;letter-spacing:.1em;
+  color:var(--white);text-decoration:none;
+}
+.mob-menu a:hover{color:var(--cyan);}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+#hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  padding:60px clamp(20px,8vw,120px) 0;
+}
+
+.hero-inner{max-width:680px;}
+
+.hero-status{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:32px;opacity:0;
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#00FF7F;
+  box-shadow:0 0 8px #00FF7F;
+  animation:pdot 2s ease-in-out infinite;
+}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.75);}}
+.status-txt{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.62rem;letter-spacing:.2em;color:#00FF7F;
+}
+
+.hero-name{
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(3.2rem,10vw,8rem);
+  line-height:.95;letter-spacing:-.03em;
+  color:var(--white);margin-bottom:6px;opacity:0;
+}
+.hero-name .cyn{
+  color:var(--cyan);
+  text-shadow:0 0 40px rgba(0,200,255,.5),0 0 80px rgba(0,200,255,.2);
+}
+
+.hero-role{
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(.6rem,1.5vw,.76rem);
+  letter-spacing:.24em;color:var(--muted);
+  margin:22px 0 18px;opacity:0;
+}
+
+.hero-desc{
+  font-size:clamp(.82rem,1.8vw,.96rem);
+  color:rgba(232,244,255,.5);
+  max-width:460px;line-height:1.8;
+  margin-bottom:40px;opacity:0;
+}
+
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;}
+
+.btn-p{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.12em;
+  color:var(--void);background:var(--cyan);
+  border:none;padding:13px 32px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  text-decoration:none;display:inline-block;
+  transition:box-shadow .25s,transform .15s;
+}
+.btn-p:hover{
+  box-shadow:0 0 30px rgba(0,200,255,.65),0 0 70px rgba(0,200,255,.2);
+  transform:translateY(-1px);
+}
+.btn-g{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.12em;
+  color:var(--cyan);background:transparent;
+  border:1px solid rgba(0,200,255,.28);
+  padding:12px 32px;text-decoration:none;display:inline-block;
+  transition:border-color .25s;
+}
+.btn-g:hover{border-color:var(--cyan);}
+
+/* hero scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:36px;
+  left:clamp(20px,8vw,120px);
+  display:flex;align-items:center;gap:10px;
+  opacity:0;
+}
+.scroll-line{
+  width:1px;height:48px;background:var(--muted);
+  position:relative;overflow:hidden;
+}
+.scroll-line::after{
+  content:'';position:absolute;top:-48px;left:0;
+  width:1px;height:48px;
+  background:var(--cyan);
+  animation:strack 1.9s ease-in-out infinite;
+}
+@keyframes strack{0%{top:-48px;}100%{top:48px;}}
+.scroll-lbl{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.56rem;letter-spacing:.2em;
+  color:var(--muted);writing-mode:vertical-rl;
+}
+
+/* ── GLASS WRAPPER (sections float over network) ─────────── */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+}
+.glass-d{
+  background:rgba(0,0,5,.92);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+}
+
+section{padding:clamp(72px,11vh,120px) clamp(20px,8vw,120px);}
+
+.sec-tag{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;letter-spacing:.26em;
+  color:var(--muted);display:block;margin-bottom:14px;
+}
+.sec-h{
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(1.7rem,3.8vw,2.6rem);
+  line-height:1.1;color:var(--white);
+  margin-bottom:52px;
+}
+.sec-h .c{color:var(--cyan);}
+
+/* ── ABOUT ───────────────────────────────────────────────── */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:72px;align-items:start;
+}
+.about-body p{
+  font-size:.88rem;color:rgba(232,244,255,.5);
+  line-height:1.82;margin-bottom:18px;
+}
+
+/* traveling glow rule */
+.glow-rule{
+  height:1px;background:rgba(0,200,255,.08);
+  position:relative;overflow:hidden;margin:32px 0;
+}
+.glow-rule::after{
+  content:'';position:absolute;top:0;left:-30%;
+  width:30%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  animation:tglow 3.2s ease-in-out infinite;
+}
+@keyframes tglow{0%{left:-30%;}100%{left:130%;}}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.stat{border-top:1px solid rgba(0,200,255,.14);padding-top:14px;}
+.stat-v{
+  font-family:'Share Tech Mono',monospace;
+  font-size:1.5rem;color:var(--cyan);
+  text-shadow:0 0 10px rgba(0,200,255,.4);
+  line-height:1;display:block;
+}
+.stat-n{font-size:.68rem;color:var(--muted);margin-top:5px;display:block;}
+
+/* skill list */
+.sk-list{list-style:none;}
+.sk-list li{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid rgba(0,200,255,.055);
+  font-family:'Share Tech Mono',monospace;
+  font-size:.74rem;color:rgba(232,244,255,.55);
+}
+.sk-list li::before{content:'▸';color:var(--cyan);font-size:.6rem;flex-shrink:0;}
+.sk-dots{display:flex;gap:3px;margin-left:auto;flex-shrink:0;}
+.sk-dots span{width:5px;height:5px;border-radius:50%;background:rgba(0,200,255,.12);}
+.sk-dots span.on{background:var(--cyan);box-shadow:0 0 4px var(--cyan);}
+
+/* ── SERVICES (vertical list, not card grid) ─────────────── */
+.svc-list{display:flex;flex-direction:column;}
+
+.svc-row{
+  display:grid;
+  grid-template-columns:72px 1fr 28px;
+  gap:20px;align-items:start;
+  padding:26px 0;
+  border-top:1px solid rgba(0,200,255,.08);
+  position:relative;
+  transition:background .2s;
+}
+.svc-row:last-child{border-bottom:1px solid rgba(0,200,255,.08);}
+.svc-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--cyan);box-shadow:0 0 8px var(--cyan);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .28s ease;
+}
+.svc-row:hover::before{transform:scaleY(1);}
+.svc-row:hover{background:rgba(0,200,255,.028);}
+.svc-row:hover .svc-arr{color:var(--cyan);transform:translateX(4px);}
+
+.svc-code{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.58rem;letter-spacing:.16em;
+  color:var(--muted);padding-top:5px;
+}
+.svc-name{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.95rem;color:var(--white);margin-bottom:8px;
+}
+.svc-desc{font-size:.8rem;color:rgba(232,244,255,.38);line-height:1.72;max-width:520px;}
+.svc-arr{
+  font-size:1rem;color:var(--muted);
+  transition:color .25s,transform .25s;padding-top:3px;
+}
+
+/* ── PROCESS (vertical timeline, not step cards) ─────────── */
+.tl{display:grid;grid-template-columns:120px 1fr;gap:0;}
+.tl-track{position:relative;padding-right:32px;}
+.tl-track::after{
+  content:'';position:absolute;right:16px;top:8px;
+  width:1px;height:calc(100% - 8px);
+  background:linear-gradient(to bottom,var(--cyan),transparent);
+  opacity:.2;
+}
+.tl-row{margin-bottom:52px;}
+.tl-row:last-child{margin-bottom:0;}
+.tl-num{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.56rem;letter-spacing:.2em;
+  color:var(--muted);display:block;padding-top:6px;
+}
+.tl-gem{
+  position:absolute;right:9px;top:4px;
+  width:14px;height:14px;
+  border:1px solid var(--cyan);
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+  background:var(--void);
+}
+.tl-content{}
+.tl-title{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.9rem;color:var(--white);margin-bottom:8px;
+}
+.tl-desc{font-size:.8rem;color:rgba(232,244,255,.42);line-height:1.72;max-width:420px;}
+
+/* ── CREDENTIALS ─────────────────────────────────────────── */
+.creds{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:rgba(0,200,255,.05);
+}
+.cred{
+  background:rgba(4,12,24,.96);padding:28px 26px;
+  transition:background .2s;
+}
+.cred:hover{background:rgba(0,200,255,.04);}
+.cred-type{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.56rem;letter-spacing:.22em;
+  color:var(--cyan);opacity:.65;
+  display:block;margin-bottom:9px;
+}
+.cred-name{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.86rem;color:var(--white);
+  line-height:1.3;margin-bottom:5px;
+}
+.cred-detail{font-size:.72rem;color:var(--muted);}
+
+/* ── CTA ─────────────────────────────────────────────────── */
+.cta-sec{text-align:center;position:relative;overflow:hidden;}
+.cta-sec::before{
+  content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:700px;height:450px;
+  background:radial-gradient(ellipse,rgba(0,200,255,.065) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cta-h{
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(1.9rem,5.5vw,3.8rem);
+  line-height:1.05;color:var(--white);margin-bottom:18px;
+}
+.cta-h em{
+  font-style:normal;color:var(--cyan);
+  text-shadow:0 0 28px rgba(0,200,255,.4);
+}
+.cta-sub{
+  font-size:.86rem;color:rgba(232,244,255,.42);
+  max-width:400px;margin:0 auto 44px;line-height:1.78;
+}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer{
+  border-top:1px solid rgba(0,200,255,.06);
+  padding:18px clamp(20px,8vw,120px);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;
+  background:rgba(0,0,5,.97);
+}
+.foot-brand{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:var(--white);}
+.foot-brand b{color:var(--cyan);font-weight:400;}
+.foot-loc{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:var(--muted);}
+
+/* ── REVEAL (GSAP will animate) ──────────────────────────── */
+.rv{opacity:0;transform:translateY(22px);}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:44px;}
+  .tl{grid-template-columns:90px 1fr;}
+  .svc-row{grid-template-columns:56px 1fr 20px;gap:14px;}
+}
+@media(max-width:640px){
+  .nav-links,.nav-cta{display:none;}
+  .burger{display:flex;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .creds{grid-template-columns:1fr;}
+  .tl{grid-template-columns:72px 1fr;}
+  .svc-row{grid-template-columns:1fr;gap:8px;}
+  .svc-code,.svc-arr{display:none;}
+}
+/* ── ACESSIBILIDADE: FOCO VISÍVEL E SKIP LINK ────────────── */
+.skip-link{
+  position:absolute;top:-48px;left:12px;z-index:9999;
+  background:var(--cyan);color:var(--void);
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.08em;
+  padding:10px 18px;text-decoration:none;
+  transition:top .2s;
+}
+.skip-link:focus{top:12px;}
+
+a:focus-visible,
+button:focus-visible,
+.nav-cta:focus-visible,
+.btn-p:focus-visible,
+.btn-g:focus-visible,
+.burger:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:3px;
+}
+.nav-links a:focus-visible{outline-offset:5px;}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  body{cursor:auto;}
+  #cur-dot,#cur-ring{display:none;}
+}
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#hero">Pular para o conteúdo</a>
+
+<!-- Custom cursor (pointer devices) -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- WebGL fixed background -->
+<canvas id="bg-canvas"></canvas>
+
+<div class="page">
+
+<!-- NAV -->
+<nav id="nav" aria-label="Navegação principal">
+  <a class="nav-logo" href="#">TONY<b>_IT</b></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">sobre</a></li>
+    <li><a href="#servicos">serviços</a></li>
+    <li><a href="#processo">processo</a></li>
+    <li><a href="#formacao">formação</a></li>
+  </ul>
+  <a class="nav-cta" href="#contato">contato</a>
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mob-menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-menu" id="mob-menu">
+  <a href="#sobre">sobre</a>
+  <a href="#servicos">serviços</a>
+  <a href="#processo">processo</a>
+  <a href="#formacao">formação</a>
+  <a href="#contato">contato</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-status" id="hs">
+      <div class="status-dot"></div>
+      <span class="status-txt">sistema disponível · atendimento ativo</span>
+    </div>
+    <h1 class="hero-name" id="hn">
+      <span id="scr">TONY</span><span class="cyn">_IT</span>
+    </h1>
+    <p class="hero-role" id="hr">suporte técnico especializado · manaus — am</p>
+    <p class="hero-desc" id="hd">Diagnóstico ágil, solução direta. Computadores funcionando, usuários satisfeitos — sem enrolação.</p>
+    <div class="hero-btns" id="hb">
+      <a class="btn-p" href="#contato">solicitar atendimento</a>
+      <a class="btn-g" href="#servicos">ver serviços</a>
+    </div>
+  </div>
+  <div class="hero-scroll" id="hscr">
+    <div class="scroll-line"></div>
+    <span class="scroll-lbl">scroll</span>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<div class="glass">
+<section id="sobre">
+  <span class="sec-tag rv">// 001 — identificação</span>
+  <h2 class="sec-h rv">Técnico orientado a<br>resultados <span class="c">concretos</span></h2>
+  <div class="about-grid">
+    <div>
+      <p class="rv">Estudante de Ciência da Computação com experiência prática em suporte técnico, manutenção de equipamentos e configuração de sistemas operacionais.</p>
+      <p class="rv">Atendimento de Nível 1 para usuários finais, com domínio de ambientes Windows e Linux. Cada chamado tratado com método e transparência.</p>
+      <div class="glow-rule rv"></div>
+      <div class="stats rv">
+        <div class="stat">
+          <span class="stat-v counter" data-to="216">0h</span>
+          <span class="stat-n">horas de formação técnica</span>
+        </div>
+        <div class="stat">
+          <span class="stat-v">N1</span>
+          <span class="stat-n">nível de suporte</span>
+        </div>
+        <div class="stat">
+          <span class="stat-v">Win+Linux</span>
+          <span class="stat-n">ambientes suportados</span>
+        </div>
+        <div class="stat">
+          <span class="stat-v">680h</span>
+          <span class="stat-n">inglês técnico</span>
+        </div>
+      </div>
+    </div>
+    <ul class="sk-list rv">
+      <li>Windows OS — instalação e config<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+      <li>Linux OS — ambiente completo<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+      <li>Manutenção de hardware<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></li>
+      <li>Diagnóstico de sistema<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+      <li>Suporte ao usuário final<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></li>
+      <li>Redes e conectividade<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div></li>
+      <li>Office / Google Workspace<div class="sk-dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<!-- SERVIÇOS -->
+<div class="glass-d">
+<section id="servicos">
+  <span class="sec-tag rv">// 002 — módulos de serviço</span>
+  <h2 class="sec-h rv">O que eu resolvo<br>para você</h2>
+  <div class="svc-list">
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.01</span>
+      <div><h3 class="svc-name">Instalação e Configuração de SO</h3><p class="svc-desc">Formatação, instalação e configuração completa de Windows 10/11 e distribuições Linux. Ambiente limpo, atualizado e pronto.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.02</span>
+      <div><h3 class="svc-name">Manutenção de Hardware</h3><p class="svc-desc">Montagem, troca de componentes, diagnóstico de falhas físicas e manutenção preventiva e corretiva de computadores.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.03</span>
+      <div><h3 class="svc-name">Diagnóstico e Otimização</h3><p class="svc-desc">Identificação de gargalos, erros de software e conflitos de driver. Máquinas lentas ou instáveis — resolvidas.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.04</span>
+      <div><h3 class="svc-name">Suporte Técnico ao Usuário</h3><p class="svc-desc">Atendimento N1: resolução de dúvidas operacionais, instalação de programas e configuração de periféricos.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.05</span>
+      <div><h3 class="svc-name">Conectividade e Redes</h3><p class="svc-desc">Diagnóstico e resolução de problemas de rede, configuração de roteadores, falhas de conectividade doméstica e de escritório.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+    <div class="svc-row rv">
+      <span class="svc-code">SVC.06</span>
+      <div><h3 class="svc-name">Ambiente de Trabalho Digital</h3><p class="svc-desc">Configuração do Pacote Office e Google Workspace, organização de arquivos e backup de dados.</p></div>
+      <span class="svc-arr">⟶</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- PROCESSO -->
+<div class="glass">
+<section id="processo">
+  <span class="sec-tag rv">// 003 — protocolo de atendimento</span>
+  <h2 class="sec-h rv">Como funciona<br>cada <span class="c">chamado</span></h2>
+  <div class="tl">
+    <div class="tl-track">
+      <div class="tl-row rv"><span class="tl-num">fase 01</span><div class="tl-gem"></div></div>
+      <div class="tl-row rv"><span class="tl-num">fase 02</span><div class="tl-gem"></div></div>
+      <div class="tl-row rv"><span class="tl-num">fase 03</span><div class="tl-gem"></div></div>
+      <div class="tl-row rv"><span class="tl-num">fase 04</span><div class="tl-gem"></div></div>
+    </div>
+    <div>
+      <div class="tl-row rv"><h3 class="tl-title">Contato e briefing</h3><p class="tl-desc">Você descreve o problema. Faço as perguntas certas para entender o contexto sem enrolação.</p></div>
+      <div class="tl-row rv"><h3 class="tl-title">Diagnóstico preciso</h3><p class="tl-desc">Analiso o sistema, identifico a causa raiz e apresento o plano de ação com clareza.</p></div>
+      <div class="tl-row rv"><h3 class="tl-title">Execução técnica</h3><p class="tl-desc">Aplico a solução de forma organizada, com atenção total aos seus dados e configurações.</p></div>
+      <div class="tl-row rv"><h3 class="tl-title">Verificação e entrega</h3><p class="tl-desc">Confirmo que tudo está funcionando antes de fechar. Sem suposições, só resultado.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- FORMAÇÃO -->
+<div class="glass-d">
+<section id="formacao">
+  <span class="sec-tag rv">// 004 — credenciais</span>
+  <h2 class="sec-h rv">Formação e<br><span class="c">certificações</span></h2>
+  <div class="creds rv">
+    <div class="cred"><span class="cred-type">graduação em andamento</span><p class="cred-name">Bacharelado em Ciência da Computação</p><p class="cred-detail">Faculdade Estácio · 3º Período</p></div>
+    <div class="cred"><span class="cred-type">certificação técnica</span><p class="cred-name">Informática Completa</p><p class="cred-detail">CEA Office · 216 horas</p></div>
+    <div class="cred"><span class="cred-type">ensino regular</span><p class="cred-name">Ensino Médio Completo</p><p class="cred-detail">Colégio IDAAM · conclusão 2025</p></div>
+    <div class="cred"><span class="cred-type">idioma</span><p class="cred-name">Inglês Intermediário</p><p class="cred-detail">ASLAN Idiomas · 680 horas</p></div>
+  </div>
+</section>
+</div>
+
+<!-- CTA -->
+<div class="glass">
+<section id="contato" class="cta-sec">
+  <span class="sec-tag rv" style="display:block;text-align:center">// sistema disponível</span>
+  <h2 class="cta-h rv">Pronto para resolver<br>o seu <em>problema</em></h2>
+  <p class="cta-sub rv">Equipamento com problema, sistema lento, dúvida técnica — entra em contato e resolvemos direto ao ponto.</p>
+  <div class="cta-row rv">
+    <a class="btn-p" href="https://wa.me/5592981533758" target="_blank" rel="noopener">chamar no whatsapp</a>
+    <a class="btn-g" href="mailto:tonyit214@gmail.com">enviar e-mail</a>
+  </div>
+</section>
+</div>
+
+<footer>
+  <span class="foot-brand">TONY<b>_IT</b></span>
+  <span class="foot-loc">Manaus, AM · suporte técnico especializado</span>
+</footer>
+
+</div><!-- .page -->
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* ============================================================
+   FALLBACK — if CDNs fail, show content
+   ============================================================ */
+window.addEventListener('error', function(e) {
+  if (e.target && (e.target.src || '').includes('cdnjs')) {
+    document.querySelectorAll('.rv,.hero-status,#hn,#hr,#hd,#hb,#hscr,#hs').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+}, true);
+
+/* ============================================================
+   THREE.JS — PARTICLE NETWORK (full-page fixed canvas)
+   ============================================================ */
+;(function initThree() {
+  var canvas = document.getElementById('bg-canvas');
+  if (!window.THREE) return;
+
+  function revealFallback() {
+    document.querySelectorAll('.rv,.hero-status,#hn,#hr,#hd,#hb,#hscr,#hs').forEach(function(el) {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  } catch (err) {
+    revealFallback();
+    return;
+  }
+  if (!renderer.getContext()) { revealFallback(); return; }
+
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+
+  var scene = new THREE.Scene();
+  var cam = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 100);
+  cam.position.z = 9;
+
+  /* nodes */
+  var N = innerWidth < 640 ? 55 : 95;
+  var nodes = [];
+  for (var i = 0; i < N; i++) {
+    nodes.push({
+      x: (Math.random() - .5) * 24,
+      y: (Math.random() - .5) * 14,
+      z: (Math.random() - .5) * 3,
+      vx: (Math.random() - .5) * .004,
+      vy: (Math.random() - .5) * .004
+    });
+  }
+
+  /* point cloud */
+  var ptGeo = new THREE.BufferGeometry();
+  var ptArr = new Float32Array(N * 3);
+  nodes.forEach(function(n, i) { ptArr[i*3]=n.x; ptArr[i*3+1]=n.y; ptArr[i*3+2]=n.z; });
+  ptGeo.setAttribute('position', new THREE.BufferAttribute(ptArr, 3));
+  scene.add(new THREE.Points(ptGeo,
+    new THREE.PointsMaterial({ color: 0x00C8FF, size: .045, transparent: true, opacity: .65 })));
+
+  /* line segments (pre-allocated) */
+  var MAX_SEGS = N * N;
+  var lnArr = new Float32Array(MAX_SEGS * 6);
+  var lnGeo = new THREE.BufferGeometry();
+  lnGeo.setAttribute('position', new THREE.BufferAttribute(lnArr, 3));
+  var lnMesh = new THREE.LineSegments(lnGeo,
+    new THREE.LineBasicMaterial({ color: 0x0044CC, transparent: true, opacity: .1 }));
+  scene.add(lnMesh);
+
+  var MAX_D = 4.8;
+  var mx = 0, my = 0;
+  document.addEventListener('mousemove', function(e) {
+    mx = (e.clientX / innerWidth - .5) * 2;
+    my = (e.clientY / innerHeight - .5) * 2;
+  });
+
+  var rafId = null;
+  var running = false;
+
+  function tick() {
+    rafId = requestAnimationFrame(tick);
+
+    /* move nodes */
+    nodes.forEach(function(n, i) {
+      n.x += n.vx; n.y += n.vy;
+      if (Math.abs(n.x) > 12) n.vx *= -1;
+      if (Math.abs(n.y) > 7)  n.vy *= -1;
+      ptArr[i*3] = n.x; ptArr[i*3+1] = n.y;
+    });
+    ptGeo.attributes.position.needsUpdate = true;
+
+    /* rebuild lines */
+    var lc = 0;
+    for (var i = 0; i < N; i++) {
+      for (var j = i + 1; j < N; j++) {
+        var dx = nodes[i].x - nodes[j].x;
+        var dy = nodes[i].y - nodes[j].y;
+        if (dx*dx + dy*dy < MAX_D*MAX_D) {
+          var b = lc * 6;
+          lnArr[b]   = nodes[i].x; lnArr[b+1] = nodes[i].y; lnArr[b+2] = nodes[i].z;
+          lnArr[b+3] = nodes[j].x; lnArr[b+4] = nodes[j].y; lnArr[b+5] = nodes[j].z;
+          lc++;
+        }
+      }
+    }
+    lnGeo.attributes.position.needsUpdate = true;
+    lnGeo.setDrawRange(0, lc * 2);
+
+    /* camera drift */
+    cam.position.x += (mx * .55 - cam.position.x) * .04;
+    cam.position.y += (-my * .32 - cam.position.y) * .04;
+
+    renderer.render(scene, cam);
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    tick();
+  }
+  function stop() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+  }
+  start();
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) stop(); else start();
+  });
+
+  window.addEventListener('resize', function() {
+    cam.aspect = innerWidth / innerHeight;
+    cam.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+})();
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+;(function initCursor() {
+  if (window.matchMedia('(pointer:coarse)').matches) return;
+  var dot  = document.getElementById('cur-dot');
+  var ring = document.getElementById('cur-ring');
+  var rx = 0, ry = 0, mx = 0, my = 0;
+
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+
+  (function lag() {
+    rx += (mx - rx) * .13;
+    ry += (my - ry) * .13;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(lag);
+  })();
+
+  document.querySelectorAll('a,button,.svc-row').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { document.body.classList.add('chover'); });
+    el.addEventListener('mouseleave', function() { document.body.classList.remove('chover'); });
+  });
+})();
+
+/* ============================================================
+   TEXT SCRAMBLE — hero name only
+   ============================================================ */
+function scramble(el, cb) {
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
+  var orig = el.textContent;
+  var iter = 0;
+  var id = setInterval(function() {
+    el.textContent = orig.split('').map(function(c, i) {
+      return i < iter ? c : chars[Math.floor(Math.random() * chars.length)];
+    }).join('');
+    if (iter >= orig.length + 4) { clearInterval(id); el.textContent = orig; if(cb) cb(); }
+    iter += .4;
+  }, 38);
+}
+
+/* ============================================================
+   GSAP — HERO ENTRANCE
+   ============================================================ */
+window.addEventListener('load', function() {
+  if (!window.gsap) return;
+
+  gsap.set(['#hs','#hn','#hr','#hd','#hb','#hscr'], { opacity: 0, y: 18 });
+
+  var tl = gsap.timeline({ delay: .25 });
+  tl.to('#hs',   { opacity:1, y:0, duration:.45, ease:'power2.out' })
+    .to('#hn',   { opacity:1, y:0, duration:.55, ease:'power2.out' }, '-=.15')
+    .to('#hr',   { opacity:1, y:0, duration:.45, ease:'power2.out' }, '-=.25')
+    .to('#hd',   { opacity:1, y:0, duration:.45, ease:'power2.out' }, '-=.25')
+    .to('#hb',   { opacity:1, y:0, duration:.45, ease:'power2.out' }, '-=.25')
+    .to('#hscr', { opacity:1, y:0, duration:.4,  ease:'power2.out' }, '-=.2');
+
+  tl.add(function() { scramble(document.getElementById('scr')); }, .3);
+});
+
+/* ============================================================
+   GSAP + ScrollTrigger — SCROLL REVEALS
+   ============================================================ */
+window.addEventListener('load', function() {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.querySelectorAll('.rv').forEach(function(el) {
+    gsap.fromTo(el,
+      { opacity: 0, y: 26 },
+      { opacity: 1, y: 0, duration: .65, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+    );
+  });
+});
+
+/* ============================================================
+   COUNTER ANIMATION (vanilla IntersectionObserver)
+   ============================================================ */
+;(function initCounters() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      obs.unobserve(entry.target);
+      var el = entry.target;
+      var target = parseInt(el.dataset.to, 10);
+      var start = performance.now();
+      var dur = 1350;
+      function frame(now) {
+        var p = Math.min((now - start) / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(ease * target) + 'h';
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }, { threshold: .6 });
+
+  document.querySelectorAll('.counter').forEach(function(el) { obs.observe(el); });
+})();
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+;(function() {
+  var btn  = document.getElementById('burger');
+  var menu = document.getElementById('mob-menu');
+  function setOpen(isOpen) {
+    btn.classList.toggle('open', isOpen);
+    menu.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  }
+  btn.addEventListener('click', function() {
+    setOpen(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { setOpen(false); });
+  });
+})();
+
+/* ============================================================
+   NAV SCROLL STATE
+   ============================================================ */
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 80);
+}, { passive: true });
+</script>
+</body>
+</html>
